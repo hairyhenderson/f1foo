@@ -5,7 +5,7 @@ var app = express()
 
 app.set('port', (process.env.VCAP_APP_PORT || process.env.PORT || 5000))
 
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({extended:true}))
 
 app.use(express.static(__dirname + '/public'))
 
@@ -24,7 +24,7 @@ app.post('/', function(req, res) {
     }
     sub.FieldStructure = undefined
     sub.FormStructure = undefined
-    subs.add(sub)
+    subs.push(sub)
     res.status(200).send('OK')
   } else {
     res.status(403).end()
