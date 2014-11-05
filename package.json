@@ -7,8 +7,9 @@
     "start": "node index.js"
   },
   "dependencies": {
-    "express": "~4.9.x",
-    "cool-ascii-faces": "*"
+    "body-parser": "^1.9.2",
+    "cool-ascii-faces": "*",
+    "express": "~4.9.x"
   },
   "engines": {
     "node": "0.10.x"
