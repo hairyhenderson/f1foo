@@ -16,7 +16,7 @@ app.get('/', function(request, response) {
 
 app.post('/', function(req, res) {
   if (req.body) {
-    console.log('got a body: %j', body)
+    console.log('got a body: %j', req.body)
   }
   res.status(200).send('Thanks!')
 })
