@@ -17,6 +17,9 @@ app.get('/', function(request, response) {
 app.post('/', function(req, res) {
   if (req.body) {
     console.log('got a body: %j', req.body)
+    if (req.body.FieldStructure) {
+      console.log('field structure is %j', JSON.parse(req.body.FieldStructure))
+    }
   }
   res.status(200).send('Thanks!')
 })
