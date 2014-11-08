@@ -1,7 +1,13 @@
 {
-  "name": "metforms",
+  "name": "f1foo",
   "version": "0.2.0",
-  "description": "",
+  "description": "An integration between Wufoo's WebHooks and Fellowship One's REST API.",
+  "keywords": [
+    "wufoo",
+    "webhook",
+    "fellowshipone",
+    "f1"
+  ],
   "main": "index.js",
   "private": true,
   "scripts": {
