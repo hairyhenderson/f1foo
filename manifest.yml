@@ -1,0 +1,9 @@
+---
+applications:
+- name: metforms
+  memory: 64M
+  instances: 1
+  command: node index.js
+  host: metforms
+  domain: mybluemix.net
+  path: .
