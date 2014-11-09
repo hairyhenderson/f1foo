@@ -71,7 +71,9 @@ describe('API', function() {
           .expect([{
             First: 'hello',
             Second: 'world',
-            IP: '1.2.3.4'
+            metadata: {
+              IP: '1.2.3.4'
+            }
           }])
           .expect(200, done)
       })

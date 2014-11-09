@@ -43,7 +43,8 @@ var postToSub = function(postBody, callback) {
         callback(!(/FieldStructure/.test(item) || /FormStructure/.test(item) || /Field[0-9]+/.test(item)))
       }, function(items) {
         async.reduce(items, sub, function(memo, item, callback) {
-          memo[item] = postBody[item]
+          if (!memo.metadata) memo.metadata = {}
+          memo.metadata[item] = postBody[item]
           callback(null, memo)
         }, callback)
       })
