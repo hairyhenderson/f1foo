@@ -56,7 +56,8 @@ describe('API', function() {
           Type: 'url',
           ID: 'Field2'
         }]
-      })
+      }),
+      IP: '1.2.3.4'
     }
     request(app).post('/hooks')
       .type('form')
@@ -69,7 +70,8 @@ describe('API', function() {
           .expect('Content-Type', /json/)
           .expect([{
             First: 'hello',
-            Second: 'world'
+            Second: 'world',
+            IP: '1.2.3.4'
           }])
           .expect(200, done)
       })
