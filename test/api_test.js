@@ -2,7 +2,7 @@
 var sinon = require('sinon')
 var should = require('should')
 var request = require('supertest')
-var app = require('../index')
+var app = require('../app')
 
 describe('API', function() {
   var r;
@@ -35,7 +35,28 @@ describe('API', function() {
   it('POST /hooks adds entry', function(done) {
     var body = {
       Field1: 'hello',
-      Field2: 'world'
+      Field2: 'world',
+      FieldStructure: JSON.stringify({
+        Fields: [{
+          Title: 'First',
+          Instructions: '',
+          IsRequired: '0',
+          ClassNames: '',
+          DefaultVal: '',
+          Page: '1',
+          Type: 'text',
+          ID: 'Field1'
+        }, {
+          Title: 'Second',
+          Instructions: '',
+          IsRequired: '0',
+          ClassNames: '',
+          DefaultVal: '',
+          Page: '1',
+          Type: 'url',
+          ID: 'Field2'
+        }]
+      })
     }
     request(app).post('/hooks')
       .type('form')
@@ -46,8 +67,20 @@ describe('API', function() {
 
         request(app).get('/hooks')
           .expect('Content-Type', /json/)
-          .expect([body])
+          .expect([{
+            First: 'hello',
+            Second: 'world'
+          }])
           .expect(200, done)
       })
+  })
+
+  it('POST /hooks requires FieldStructure property', function(done) {
+    request(app).post('/hooks')
+      .type('form')
+      .send({
+        Field1: 'foo'
+      })
+      .expect(400, 'Missing FieldStructure', done)
   })
 })

@@ -1,6 +1,6 @@
 {
   "name": "f1foo",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "An integration between Wufoo's WebHooks and Fellowship One's REST API.",
   "keywords": [
     "wufoo",
@@ -8,16 +8,17 @@
     "fellowshipone",
     "f1"
   ],
-  "main": "index.js",
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
     "test": "make test-travis"
   },
   "dependencies": {
+    "async": "^0.9.0",
     "body-parser": "^1.9.2",
     "debug": "^2.1.0",
     "express": "^4.9.0",
+    "lodash": "^2.4.1",
     "morgan": "^1.4.1"
   },
   "engines": {
