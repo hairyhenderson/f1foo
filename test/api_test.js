@@ -1,34 +1,33 @@
 'use strict';
+var util = require('util')
 var sinon = require('sinon')
 var should = require('should')
+  // var req = require('request')
 var request = require('supertest')
-var app = require('../app')
 
 describe('API', function() {
-  var r;
+  var app, r
 
-  beforeEach(function() {
-    // r = sinon.mock(request)
-  })
+  before(function() {
+    app = require('../app')
+    request = request(app)
+    var port = request.get().app.address().port
+    var path = '/f1/v1'
+    process.env.F1_CONFIG = JSON.stringify({
+      "apiURL": "http://localhost:" + port + path,
+      "oauth_credentials": {
+        "consumer_key": "1",
+        "consumer_secret": "1"
+      }
+    })
 
-  function verifyAll() {
-    // r.verify()
-  }
-
-  afterEach(function() {
-    // r.restore()
+    var f1api = require('./fixtures/mock_f1_api')
+    app.use(path, f1api)
   })
 
   it('GET / responds with 200', function(done) {
-    request(app).get('/')
+    request.get('/')
       .expect('Content-Length', 0)
-      .expect(200, done)
-  })
-
-  it('GET /hooks responds with empty array', function(done) {
-    request(app).get('/hooks')
-      .expect('Content-Type', /json/)
-      .expect([])
       .expect(200, done)
   })
 
@@ -59,28 +58,15 @@ describe('API', function() {
       }),
       IP: '1.2.3.4'
     }
-    request(app).post('/hooks')
+
+    request.post('/hooks')
       .type('form')
       .send(body)
-      .expect(200)
-      .end(function(err, res) {
-        if (err) return done(err)
-
-        request(app).get('/hooks')
-          .expect('Content-Type', /json/)
-          .expect([{
-            First: 'hello',
-            Second: 'world',
-            metadata: {
-              IP: '1.2.3.4'
-            }
-          }])
-          .expect(200, done)
-      })
+      .expect(200, done)
   })
 
   it('POST /hooks requires FieldStructure property', function(done) {
-    request(app).post('/hooks')
+    request.post('/hooks')
       .type('form')
       .send({
         Field1: 'foo'

@@ -18,8 +18,11 @@
     "body-parser": "^1.9.2",
     "debug": "^2.1.0",
     "express": "^4.10.2",
+    "fellowshipone": "0.0.1",
     "lodash": "^2.4.1",
-    "morgan": "^1.5.0"
+    "morgan": "^1.5.0",
+    "passport": "^0.2.1",
+    "request": "^2.48.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -30,8 +33,9 @@
     "istanbul": "^0.3.2",
     "jshint": "^2.5.10",
     "mocha": "^2.0.1",
+    "passport-anonymous": "^1.0.1",
     "should": "^4.3.0",
-    "sinon": "^1.11.1",
-    "supertest": "^0.14.0"
+    "sinon": "^1.12.1",
+    "supertest": "^0.15.0"
   }
 }

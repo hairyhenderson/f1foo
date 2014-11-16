@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var debug = require('debug')('tmp')
+var debug = require('debug')(require('../package.json').name)
 var app = require('../app')
 
 app.set('port', (process.env.VCAP_APP_PORT || process.env.PORT || 3000))

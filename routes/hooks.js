@@ -1,55 +1,33 @@
 'use strict';
+var debug = require('debug')(require('../package.json').name + ':routes:hooks')
 var express = require('express')
 var router = express.Router()
-var util = require('util')
-var async = require('async')
-var _ = require('lodash')
 
-var subs = []
+var WufooTranslator = require('../lib/WufooTranslator')
+var F1Register = require('../lib/F1Register')
 
-router.get('/', function(request, response) {
-  response.send(subs)
-})
+var wt = new WufooTranslator()
+var f1reg = new F1Register()
 
-router.post('/', function(req, res) {
+var handler = function(req, res, next) {
   if (req.body && req.body.FieldStructure) {
-
-    postToSub(req.body, function(err, sub) {
+    wt.translate(req.body, function(err, sub) {
       if (err) return res.status(400).end()
 
-      subs.push(sub)
-      res.status(200).send('OK')
+      f1reg.register(sub, function(err, status) {
+        if (err) {
+          debug(err)
+          return next(err)
+        }
+
+        res.status(200).send(status)
+      })
     })
   } else {
     res.status(400).send('Missing FieldStructure')
   }
-})
-
-var postToSub = function(postBody, callback) {
-  var struct = JSON.parse(postBody.FieldStructure)
-  async.map(struct.Fields, function(item, callback) {
-    var fieldmapping = {}
-    fieldmapping[item.Title] = postBody[item.ID]
-    callback(null, fieldmapping)
-  }, function(err, fieldmappings) {
-    if (err) return callback(err)
-
-    async.reduce(fieldmappings, {}, function(memo, item, callback) {
-      var key = _.keys(item)[0]
-      memo[key] = item[key]
-      callback(null, memo)
-    }, function(err, sub) {
-      async.filter(_.keys(postBody), function(item, callback) {
-        callback(!(/FieldStructure/.test(item) || /FormStructure/.test(item) || /Field[0-9]+/.test(item)))
-      }, function(items) {
-        async.reduce(items, sub, function(memo, item, callback) {
-          if (!memo.metadata) memo.metadata = {}
-          memo.metadata[item] = postBody[item]
-          callback(null, memo)
-        }, callback)
-      })
-    })
-  })
 }
+
+router.post('/', handler)
 
 module.exports = router
