@@ -7,7 +7,7 @@ able to track registrations within Fellowship One.
 
 ## Features
 
-- Accepts
+- Accepts POSTs from Wufoo webhooks
 
 ### planned features...
 
