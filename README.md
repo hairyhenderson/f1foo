@@ -11,7 +11,7 @@ An integration between Wufoo's WebHooks and Fellowship One's REST API.
 It allows Wufoo to be used for event registration (and other) forms, while being
 able to track registrations within Fellowship One.
 
-### Features
+## Features
 
 - [x] Accepts POSTs from Wufoo webhooks
 - [ ] auto-matching for existing Person records
@@ -24,13 +24,26 @@ able to track registrations within Fellowship One.
 ## Installation
 
 This application is best used on a PaaS cloud provider like Heroku, Cloud Foundry,
-IBM BlueMix, and others. It's (mostly) pre-configured for Heroku and IBM BlueMix,
-and it can of course also be used on a self-hosted environment.
+IBM BlueMix, and others. It's also available as a Docker image. It's (mostly)
+pre-configured for Heroku and IBM BlueMix, and it can of course also be used on
+a self-hosted environment.
 
 Start by writing your [configuration](#Configuration) into a JSON file and
 saving it where you're going to install `f1foo`.
 
 Then, follow the instructions relevant to your environment...
+
+### Docker
+
+See [the docker website](https://docker.com) to get started with Docker.
+
+```
+$ docker run \
+  --detach \
+  --publish 3000:3000 \
+  --env F1_CONFIG='{ "apiURL": "...", ... }' \
+  hairyhenderson/f1foo
+```
 
 ### Heroku
 
