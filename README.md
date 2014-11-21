@@ -1,3 +1,9 @@
+[![Build Status](https://img.shields.io/travis/hairyhenderson/f1foo.svg)](http://travis-ci.org/hairyhenderson/f1foo)
+[![Code Coverage](https://img.shields.io/codeclimate/coverage/github/hairyhenderson/f1foo.svg)](https://codeclimate.com/github/hairyhenderson/f1foo)
+[![Code Climate](https://img.shields.io/codeclimate/github/hairyhenderson/f1foo.svg)](https://codeclimate.com/github/hairyhenderson/f1foo)
+[![Dependency Status](https://img.shields.io/gemnasium/hairyhenderson/f1foo.svg)](https://gemnasium.com/hairyhenderson/f1foo)
+[![Current Version](https://img.shields.io/npm/v/f1foo.svg)](https://www.npmjs.org/package/f1foo)
+
 # f1foo
 
 An integration between Wufoo's WebHooks and Fellowship One's REST API.
@@ -5,16 +11,13 @@ An integration between Wufoo's WebHooks and Fellowship One's REST API.
 It allows Wufoo to be used for event registration (and other) forms, while being
 able to track registrations within Fellowship One.
 
-## Features
+### Features
 
-- Accepts POSTs from Wufoo webhooks
-
-### planned features...
-
-I haven't yet had time to implement these:
-
-- auto-matching for existing Person records
-- for non-existing Person records, either:
+- [x] Accepts POSTs from Wufoo webhooks
+- [ ] auto-matching for existing Person records
+ - when there's more than 1 record which matches first/last/e-mail, either do nothing,
+   or notify someone (by e-mail?)
+- [ ] for non-existing Person records, either:
  - create a new record automatically from provided info, need to be able to (from the form, perhaps a hidden field) say whether the person is an event-only attendee or something else (newcomer? visitor? attendee?)
  - don't create a new record but notify someone by e-mail so they can optionally create a record manually for this person (?)
 
@@ -88,9 +91,23 @@ to use your production API URL for production.
 
 ### `WUFOO_HANDSHAKE_KEY`
 
+_Optional._
+
+When `WUFOO_HANDSHAKE_KEY` is set, f1foo will reject incoming posts that don't
+have a matching handshake key.
+
 ## Usage
 
-Simply point
+Once f1foo is [configured](#Configuration) and [running](#Installation), add
+WebHook notifications to your forms.
+See [these instructions](http://help.wufoo.com/articles/en_US/SurveyMonkeyArticleType/Webhooks).
+The path on the URL should be `/hooks`, so if the app is running on Heroku,
+the URL should be something like `https://f1foo.herokuapp.com/hooks`, and the
+handshakeKey should be set (or not) to your `WUFOO_HANDSHAKE_KEY` value.
+
+_Important:_ Wufoo must send the form metadata along with each POST. In the Wufoo
+UI, this is
+- [x] Include Field and Form Structures with Entry Data
 
 ## Contributions
 
