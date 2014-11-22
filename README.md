@@ -1,8 +1,8 @@
-[![Build Status](https://img.shields.io/travis/hairyhenderson/f1foo.svg)](http://travis-ci.org/hairyhenderson/f1foo)
-[![Code Coverage](https://img.shields.io/codeclimate/coverage/github/hairyhenderson/f1foo.svg)](https://codeclimate.com/github/hairyhenderson/f1foo)
-[![Code Climate](https://img.shields.io/codeclimate/github/hairyhenderson/f1foo.svg)](https://codeclimate.com/github/hairyhenderson/f1foo)
-[![Dependency Status](https://img.shields.io/gemnasium/hairyhenderson/f1foo.svg)](https://gemnasium.com/hairyhenderson/f1foo)
-[![Current Version](https://img.shields.io/npm/v/f1foo.svg)](https://www.npmjs.org/package/f1foo)
+[![Build Status][travis-image]][travis-url]
+[![Code Coverage][coverage-image]][coverage-url]
+[![Code Climate][climate-image]][climate-url]
+[![Dependency Status][gemnasium-image]][gemnasium-url]
+[![Current Version][npm-image]][npm-url]
 
 # f1foo
 
@@ -109,6 +109,13 @@ _Optional._
 When `WUFOO_HANDSHAKE_KEY` is set, f1foo will reject incoming posts that don't
 have a matching handshake key.
 
+### `DEBUG`
+
+_Optional._
+
+Controls the [debug](https://npmjs.org/package/debug) logs to aid with troubleshooting.
+Try `DEBUG=f1foo` to see f1foo's debug logs, or `DEBUG=*` to see all debug logs.
+
 ## Usage
 
 Once f1foo is [configured](#Configuration) and [running](#Installation), add
@@ -140,3 +147,18 @@ $ make test
 [The MIT License](http://opensource.org/licenses/MIT)
 
 Copyright (c) 2014 Dave Henderson
+
+[travis-image]: https://img.shields.io/travis/hairyhenderson/f1foo.svg?style=flat
+[travis-url]: https://travis-ci.org/hairyhenderson/f1foo
+
+[coverage-image]: https://img.shields.io/codeclimate/coverage/github/hairyhenderson/f1foo.svg?style=flat
+[coverage-url]: https://codeclimate.com/github/hairyhenderson/f1foo
+
+[climate-image]: https://img.shields.io/codeclimate/github/hairyhenderson/f1foo.svg?style=flat
+[climate-url]: https://codeclimate.com/github/hairyhenderson/f1foo
+
+[gemnasium-image]: https://img.shields.io/gemnasium/hairyhenderson/f1foo.svg?style=flat
+[gemnasium-url]: https://gemnasium.com/hairyhenderson/f1foo
+
+[npm-image]: https://img.shields.io/npm/v/f1foo.svg?style=flat
+[npm-url]: https://npmjs.org/package/f1foo
