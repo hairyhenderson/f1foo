@@ -31,46 +31,81 @@ describe('API', function() {
       .expect(200, done)
   })
 
-  it('POST /hooks adds entry', function(done) {
-    var body = {
-      Field1: 'hello',
-      Field2: 'world',
-      FieldStructure: JSON.stringify({
-        Fields: [{
-          Title: 'First',
-          Instructions: '',
-          IsRequired: '0',
-          ClassNames: '',
-          DefaultVal: '',
-          Page: '1',
-          Type: 'text',
-          ID: 'Field1'
-        }, {
-          Title: 'Second',
-          Instructions: '',
-          IsRequired: '0',
-          ClassNames: '',
-          DefaultVal: '',
-          Page: '1',
-          Type: 'url',
-          ID: 'Field2'
-        }]
-      }),
-      IP: '1.2.3.4'
-    }
+  describe('POST /hooks', function() {
+    var entry
+    beforeEach(function() {
+      entry = {
+        Field1: 'hello',
+        Field2: 'world',
+        FieldStructure: JSON.stringify({
+          Fields: [{
+            Title: 'First',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: '',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'text',
+            ID: 'Field1'
+          }, {
+            Title: 'Second',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: '',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'url',
+            ID: 'Field2'
+          }]
+        }),
+        IP: '1.2.3.4'
+      }
+      delete process.env.WUFOO_HANDSHAKE_KEY
+    })
 
-    request.post('/hooks')
+    it('accepts well-formed entry', function(done) {
+      var body = entry
+
+      request.post('/hooks')
+        .type('form')
+        .send(body)
+        .expect(200, done)
+    })
+
+    it('requires FieldStructure property', function(done) {
+      request.post('/hooks')
+        .type('form')
+        .send({
+          Field1: 'foo'
+        })
+        .expect(400, 'missing form metadata', done)
+    })
+
+    it('rejects entry with HandshakeKey when not expected', function(done) {
+      entry.HandshakeKey = 'foo'
+
+      request.post('/hooks')
       .type('form')
-      .send(body)
+      .send(entry)
+      .expect(401, done)
+    })
+    it('rejects entry with non-matching HandshakeKey', function(done) {
+      process.env.WUFOO_HANDSHAKE_KEY = 'foo'
+      entry.HandshakeKey = 'bar'
+
+      request.post('/hooks')
+      .type('form')
+      .send(entry)
+      .expect(401, done)
+    })
+    it('accepts entry with matching HandshakeKey', function(done) {
+      process.env.WUFOO_HANDSHAKE_KEY = 'foo'
+      entry.HandshakeKey = 'foo'
+
+      request.post('/hooks')
+      .type('form')
+      .send(entry)
       .expect(200, done)
-  })
-
-  it('POST /hooks requires FieldStructure property', function(done) {
-    request.post('/hooks')
-      .type('form')
-      .send({
-        Field1: 'foo'
-      })
-      .expect(400, 'Missing FieldStructure', done)
+    })
   })
 })
