@@ -13,7 +13,7 @@ able to track registrations within Fellowship One.
 
 ## Features
 
-- [x] Accepts POSTs from Wufoo webhooks
+- [x] Accepts POSTs from Wufoo webhooks, supports Handshake Key
 - [ ] auto-matching for existing Person records
  - when there's more than 1 record which matches first/last/e-mail, either do nothing,
    or notify someone (by e-mail?)
