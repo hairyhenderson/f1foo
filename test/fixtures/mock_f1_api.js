@@ -20,5 +20,12 @@ api.route('/PortalUser/AccessToken')
     res.setHeader('content-location', '/foo')
     res.status(200).send()
   })
+api.route('/People/Search')
+.all(passport.authenticate('anonymous', {
+  session: false
+}))
+.get(function(req, res) {
+  res.status(200).send({})
+})
 
 module.exports = api
