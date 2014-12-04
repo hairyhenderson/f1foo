@@ -36,6 +36,9 @@ var validateBody = function(body, callback) {
   } else if (!body.FieldStructure) {
     debug('missing form metadata (%j)', body)
     return callback('missing form metadata')
+  } else if (!body.HandshakeKey && !process.env.WUFOO_HANDSHAKE_KEY)
+    debug('No HandshakeKey set (%j ~= %j)', body.HandshakeKey, process.env.WUFOO_HANDSHAKE_KEY)
+    return callback()
   } else if (body.HandshakeKey !== process.env.WUFOO_HANDSHAKE_KEY) {
     debug('%j !== %j', body.HandshakeKey, process.env.WUFOO_HANDSHAKE_KEY)
     return callback(401)
