@@ -85,27 +85,35 @@ describe('API', function() {
       entry.HandshakeKey = 'foo'
 
       request.post('/hooks')
-      .type('form')
-      .send(entry)
-      .expect(401, done)
+        .type('form')
+        .send(entry)
+        .expect(401, done)
     })
     it('rejects entry with non-matching HandshakeKey', function(done) {
       process.env.WUFOO_HANDSHAKE_KEY = 'foo'
       entry.HandshakeKey = 'bar'
 
       request.post('/hooks')
-      .type('form')
-      .send(entry)
-      .expect(401, done)
+        .type('form')
+        .send(entry)
+        .expect(401, done)
+    })
+    it('accepts entry with empty HandshakeKey', function(done) {
+      entry.HandshakeKey = ''
+
+      request.post('/hooks')
+        .type('form')
+        .send(entry)
+        .expect(200, done)
     })
     it('accepts entry with matching HandshakeKey', function(done) {
       process.env.WUFOO_HANDSHAKE_KEY = 'foo'
       entry.HandshakeKey = 'foo'
 
       request.post('/hooks')
-      .type('form')
-      .send(entry)
-      .expect(200, done)
+        .type('form')
+        .send(entry)
+        .expect(200, done)
     })
   })
 })
