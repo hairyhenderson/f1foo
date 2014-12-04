@@ -113,11 +113,11 @@ describe('WufooTranslator', function() {
             }, {
               'DefaultVal': '',
               'ID': 'Field111',
-              'Label': 'State \\/ Province \\/ Region'
+              'Label': 'State / Province / Region'
             }, {
               'DefaultVal': '',
               'ID': 'Field112',
-              'Label': 'Postal \\/ Zip Code'
+              'Label': 'Postal / Zip Code'
             }, {
               'DefaultVal': '',
               'ID': 'Field113',
@@ -167,8 +167,8 @@ describe('WufooTranslator', function() {
             'Street Address': '301 Cobblestone Way',
             'Address Line 2': '',
             'City': 'Bedrock',
-            'State \\/ Province \\/ Region': 'South Dakota',
-            'Postal \\/ Zip Code': '12345',
+            'State / Province / Region': 'South Dakota',
+            'Postal / Zip Code': '12345',
             'Country': 'United States'
           },
           metadata: {
