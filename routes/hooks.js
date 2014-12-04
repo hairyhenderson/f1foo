@@ -15,7 +15,7 @@ var handler = function(req, res, next) {
     if (typeof(err) === 'number') return res.status(err).end()
 
     wt.translate(req.body, function(err, sub) {
-      if (err) return res.status(400).end()
+      if (err) return res.status(400).send(err)
 
       f1reg.register(sub, function(err, status) {
         if (err) {
