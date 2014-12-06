@@ -9,6 +9,7 @@ var app = express()
 app.use(bodyParser.urlencoded({
   extended: true
 }))
+/* istanbul ignore if */
 if (process.env.NODE_ENV !== 'test')
   app.use(morgan('combined'))
 
