@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/hairyhenderson/f1foo.png?label=ready&title=Ready)](https://waffle.io/hairyhenderson/f1foo)
 [![Build Status][travis-image]][travis-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
