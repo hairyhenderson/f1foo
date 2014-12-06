@@ -9,6 +9,7 @@ describe('API', function() {
   var app, r
 
   before(function() {
+
     app = require('../app')
     request = request(app)
     var port = request.get().app.address().port
@@ -18,7 +19,9 @@ describe('API', function() {
       "oauth_credentials": {
         "consumer_key": "1",
         "consumer_secret": "1"
-      }
+      },
+      username: 'john',
+      password: 'doe'
     })
 
     var f1api = require('./fixtures/mock_f1_api')
