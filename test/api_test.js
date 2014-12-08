@@ -2,7 +2,6 @@
 var util = require('util')
 var sinon = require('sinon')
 var should = require('should')
-  // var req = require('request')
 var request = require('supertest')
 
 describe('API', function() {
@@ -15,10 +14,10 @@ describe('API', function() {
     var port = request.get().app.address().port
     var path = '/f1/v1'
     process.env.F1_CONFIG = JSON.stringify({
-      "apiURL": "http://localhost:" + port + path,
-      "oauth_credentials": {
-        "consumer_key": "1",
-        "consumer_secret": "1"
+      'apiURL': 'http://localhost:' + port + path,
+      'oauth_credentials': {
+        'consumer_key': '1',
+        'consumer_secret': '1'
       },
       username: 'john',
       password: 'doe'
@@ -38,30 +37,41 @@ describe('API', function() {
     var entry
     beforeEach(function() {
       entry = {
-        Field1: 'hello',
-        Field2: 'world',
         FieldStructure: JSON.stringify({
           Fields: [{
-            Title: 'First',
+            Title: 'Name',
             Instructions: '',
             IsRequired: '0',
             ClassNames: '',
             DefaultVal: '',
             Page: '1',
-            Type: 'text',
-            ID: 'Field1'
+            SubFields: [{
+              DefaultVal: '',
+              ID: 'Field106',
+              Label: 'First'
+            }, {
+              DefaultVal: '',
+              ID: 'Field107',
+              Label: 'Last'
+            }],
+            Type: 'shortname',
+            ID: 'Field106'
           }, {
-            Title: 'Second',
+            Title: 'Email',
             Instructions: '',
             IsRequired: '0',
             ClassNames: '',
             DefaultVal: '',
             Page: '1',
-            Type: 'url',
-            ID: 'Field2'
+            Type: 'email',
+            ID: 'Field114'
           }]
         }),
-        IP: '1.2.3.4'
+        Field106: 'Fred',
+        Field107: 'Flinstone',
+        Field114: 'fred@flinstone.com',
+        IP: '127.0.0.1',
+        HandshakeKey: ''
       }
       delete process.env.WUFOO_HANDSHAKE_KEY
     })
