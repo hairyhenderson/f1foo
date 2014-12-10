@@ -30,6 +30,7 @@ var handler = function(req, res, next) {
 }
 
 var validateBody = function(body, callback) {
+  /* istanbul ignore if */
   if (!body) {
     debug('missing body (%j)', body)
     return callback('missing body')
