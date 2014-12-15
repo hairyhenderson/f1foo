@@ -99,9 +99,9 @@ describe('F1Register', function() {
       })
     })
 
-    it('errors given authentication failure', function(done) {
+    it('yields error given authentication failure', function(done) {
       _f1reg.expects('validateReg').yields()
-      _f1.expects('get_token').yields("ERROR")
+      _f1.expects('authenticate').yields("ERROR")
 
       f1reg.register({
         Name: {}
@@ -114,7 +114,7 @@ describe('F1Register', function() {
 
     it('yields error given people search error', function(done) {
       _f1reg.expects('validateReg').yields()
-      _f1.expects('get_token').yields()
+      _f1.expects('authenticate').yields()
       _people.expects('search').withArgs({
         searchFor: 'Fred Flintstone',
         communication: sub.Email
@@ -122,6 +122,89 @@ describe('F1Register', function() {
 
       f1reg.register(sub, function(err) {
         err.should.not.be.empty
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when more than one person record is found', function(done) {
+      _f1reg.expects('validateReg').yields()
+      _f1.expects('authenticate').yields()
+      _people.expects('search').withArgs({
+        searchFor: 'Fred Flintstone',
+        communication: sub.Email
+      }).yields(null, {
+        results: {
+          '@count': '2',
+          person: [{}, {}]
+        }
+      })
+
+      f1reg.register(sub, function(err) {
+        err.should.not.be.empty
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when can\'t ensure the person exists', function(done) {
+      _f1reg.expects('validateReg').yields()
+      _f1.expects('authenticate').yields()
+      _people.expects('search').withArgs({
+        searchFor: 'Fred Flintstone',
+        communication: sub.Email
+      }).yields(null, {
+        results: {
+          '@count': '0'
+        }
+      })
+      _f1reg.expects('ensureCreated').withArgs(sub).yields('ERROR')
+
+      f1reg.register(sub, function(err) {
+        err.should.not.be.empty
+        verifyAll()
+        done()
+      })
+    })
+
+    it('creates a new person record when no matches are found', function(done) {
+      _f1reg.expects('validateReg').yields()
+      _f1.expects('authenticate').yields()
+      _people.expects('search').withArgs({
+        searchFor: 'Fred Flintstone',
+        communication: sub.Email
+      }).yields(null, {
+        results: {
+          '@count': '0'
+        }
+      })
+      _f1reg.expects('ensureCreated').yields(sub, {})
+
+      f1reg.register(sub, function(err) {
+        verifyAll()
+        done()
+      })
+    })
+  })
+
+  describe('ensureCreated', function() {
+    it('creates new person record when person is null', function(done) {
+      _f1reg.expects('createPerson').yields()
+
+      f1reg.ensureCreated(sub, null, function(err, reg, person) {
+        reg.should.eql(sub)
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('passes arguments through when person exists', function(done) {
+      var p = {'name': 'Fred'}
+
+      f1reg.ensureCreated(sub, p, function(err, reg, person) {
+        reg.should.eql(sub)
+        person.should.eql(p)
         verifyAll()
         done()
       })

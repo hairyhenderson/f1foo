@@ -21,11 +21,18 @@ api.route('/PortalUser/AccessToken')
     res.status(200).send()
   })
 api.route('/People/Search')
-.all(passport.authenticate('anonymous', {
-  session: false
-}))
-.get(function(req, res) {
-  res.status(200).send({})
-})
+  .all(passport.authenticate('anonymous', {
+    session: false
+  }))
+  .get(function(req, res) {
+    res.status(200).send({
+      "results": {
+        "@count": "0",
+        "@pageNumber": "",
+        "@totalRecords": "0",
+        "@additionalPages": "0"
+      }
+    })
+  })
 
 module.exports = api
