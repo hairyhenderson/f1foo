@@ -4,7 +4,7 @@ try {
   require('newrelic')
   debug('loaded newrelic')
 } catch (e) {
-  debug('failed to load newrelic: %j', e)
+  debug(e)
 }
 var app = require('../app')
 
