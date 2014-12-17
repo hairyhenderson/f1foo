@@ -49,6 +49,20 @@ describe('F1Register', function() {
     }
   })
 
+  describe('searchQuery', function() {
+    it('yields query based on valid registration object', function(done) {
+      f1reg.searchQuery(sub, function(err, query) {
+        query.should.eql({
+          searchFor: 'Fred Flintstone',
+          communication: 'fred@flintstone.com'
+        })
+
+        verifyAll()
+        done()
+      })
+    })
+  })
+
   describe('validateReg', function() {
     it('requires Name', function(done) {
       delete sub.Name
@@ -89,18 +103,7 @@ describe('F1Register', function() {
   })
 
   describe('register', function() {
-    it('yields error given validation failure', function(done) {
-      _f1reg.expects('validateReg').yields('error')
-
-      f1reg.register({}, function(err) {
-        err.should.not.be.empty
-        verifyAll()
-        done()
-      })
-    })
-
     it('yields error given authentication failure', function(done) {
-      _f1reg.expects('validateReg').yields()
       _f1.expects('authenticate').yields("ERROR")
 
       f1reg.register({
@@ -112,13 +115,27 @@ describe('F1Register', function() {
       })
     })
 
-    it('yields error given people search error', function(done) {
-      _f1reg.expects('validateReg').yields()
+    it('yields error given validation failure', function(done) {
       _f1.expects('authenticate').yields()
-      _people.expects('search').withArgs({
+      _f1reg.expects('validateReg').yields('error')
+
+      f1reg.register({}, function(err) {
+        err.should.not.be.empty
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error given people search error', function(done) {
+      var query = {
         searchFor: 'Fred Flintstone',
         communication: sub.Email
-      }).yields('ERROR')
+      }
+
+      _f1.expects('authenticate').yields()
+      _f1reg.expects('validateReg').yields(null, sub)
+      _f1reg.expects('searchQuery').withArgs(sub).yields(null, query)
+      _people.expects('search').withArgs(query).yields('ERROR')
 
       f1reg.register(sub, function(err) {
         err.should.not.be.empty
@@ -128,7 +145,7 @@ describe('F1Register', function() {
     })
 
     it('yields error when more than one person record is found', function(done) {
-      _f1reg.expects('validateReg').yields()
+      _f1reg.expects('validateReg').yields(null, sub)
       _f1.expects('authenticate').yields()
       _people.expects('search').withArgs({
         searchFor: 'Fred Flintstone',
@@ -148,7 +165,7 @@ describe('F1Register', function() {
     })
 
     it('yields error when can\'t ensure the person exists', function(done) {
-      _f1reg.expects('validateReg').yields()
+      _f1reg.expects('validateReg').yields(null, sub)
       _f1.expects('authenticate').yields()
       _people.expects('search').withArgs({
         searchFor: 'Fred Flintstone',
@@ -168,7 +185,7 @@ describe('F1Register', function() {
     })
 
     it('creates a new person record when no matches are found', function(done) {
-      _f1reg.expects('validateReg').yields()
+      _f1reg.expects('validateReg').yields(null, sub)
       _f1.expects('authenticate').yields()
       _people.expects('search').withArgs({
         searchFor: 'Fred Flintstone',
@@ -200,7 +217,9 @@ describe('F1Register', function() {
     })
 
     it('passes arguments through when person exists', function(done) {
-      var p = {'name': 'Fred'}
+      var p = {
+        'name': 'Fred'
+      }
 
       f1reg.ensureCreated(sub, p, function(err, reg, person) {
         reg.should.eql(sub)
