@@ -6,31 +6,54 @@ var router = express.Router()
 var WufooTranslator = require('../lib/WufooTranslator')
 var F1Register = require('../lib/F1Register')
 
-var wt = new WufooTranslator()
-var f1reg = new F1Register()
+function Hooks(wt, f1reg) {
+  Object.defineProperties(this, {
+    wt: {
+      get: function() {
+        if (!wt) {
+          debug('no wt yet, creating anew...')
+          wt = new WufooTranslator()
+        }
+        return wt;
+      }
+    },
+    f1reg: {
+      get: function() {
+        if (!f1reg) {
+          f1reg = new F1Register()
+        }
+        return f1reg
+      }
+    }
+  })
+}
 
-var handler = function(req, res, next) {
-  validateBody(req.body, function valid(err) {
+Hooks.prototype.routes = function() {
+  router.post('/', this.handler.bind(this))
+  return router
+}
+
+Hooks.prototype.handler = function(req, res, next) {
+  this.validateBody(req.body, function valid(err) {
     if (typeof(err) === 'string') return res.status(400).send(err)
     if (typeof(err) === 'number') return res.status(err).end()
 
-    wt.translate(req.body, function(err, sub) {
+    this.wt.translate(req.body, function(err, sub) {
       if (err) return res.status(400).send(err)
 
-      f1reg.register(sub, function(err, status) {
+      this.f1reg.register(sub, function(err, status) {
         if (err) {
           debug(err)
           return next(err)
         }
 
         res.status(200).send(status)
-      })
-    })
-  })
+      }.bind(this))
+    }.bind(this))
+  }.bind(this))
 }
 
-var validateBody = function(body, callback) {
-  /* istanbul ignore if */
+Hooks.prototype.validateBody = function(body, callback) {
   if (!body) {
     debug('missing body (%j)', body)
     return callback('missing body')
@@ -48,6 +71,4 @@ var validateBody = function(body, callback) {
   }
 }
 
-router.post('/', handler)
-
-module.exports = router
+module.exports = Hooks

@@ -14,6 +14,8 @@ if (process.env.NODE_ENV !== 'test')
   app.use(morgan('combined'))
 
 app.use('/', require('./routes/index'))
-app.use('/hooks', require('./routes/hooks'))
+var Hooks = require('./routes/hooks')
+var hooks = new Hooks()
+app.use('/hooks', hooks.routes())
 
 module.exports = app
