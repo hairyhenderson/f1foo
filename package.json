@@ -47,5 +47,8 @@
     "should": "~4.4.1",
     "sinon": "~1.12.2",
     "supertest": "~0.15.0"
+  },
+  "optionalDependencies": {
+    "newrelic": "^1.14.2"
   }
 }
