@@ -1,8 +1,7 @@
 #!/usr/bin/env node
 try {
- require('newrelic')
-}
-catch () {}
+  require('newrelic')
+} catch (e) {}
 var debug = require('debug')(require('../package.json').name)
 var app = require('../app')
 
