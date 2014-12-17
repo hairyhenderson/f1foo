@@ -1,8 +1,11 @@
 #!/usr/bin/env node
+var debug = require('debug')(require('../package.json').name)
 try {
   require('newrelic')
-} catch (e) {}
-var debug = require('debug')(require('../package.json').name)
+  debug('loaded newrelic')
+} catch (e) {
+  debug('failed to load newrelic')
+}
 var app = require('../app')
 
 app.set('port', (process.env.VCAP_APP_PORT || process.env.PORT || 3000))
