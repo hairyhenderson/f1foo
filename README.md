@@ -146,7 +146,7 @@ $ make test
 
 [The MIT License](http://opensource.org/licenses/MIT)
 
-Copyright (c) 2014 Dave Henderson
+Copyright (c) 2014-2015 Dave Henderson
 
 [travis-image]: https://img.shields.io/travis/hairyhenderson/f1foo.svg?style=flat
 [travis-url]: https://travis-ci.org/hairyhenderson/f1foo
