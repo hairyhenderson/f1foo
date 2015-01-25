@@ -100,6 +100,24 @@ describe('F1Register', function() {
         done()
       })
     })
+    it('sets statusCode to 400', function(done) {
+      delete sub.Email
+
+      f1reg.validateReg(sub, function(err) {
+        err.statusCode.should.eql(400)
+        verifyAll()
+        done()
+      })
+    })
+    it('sets message', function(done) {
+      delete sub.Email
+
+      f1reg.validateReg(sub, function(err) {
+        err.message.should.not.be.empty
+        verifyAll()
+        done()
+      })
+    })
   })
 
   describe('register', function() {

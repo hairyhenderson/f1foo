@@ -94,6 +94,30 @@ describe('API', function() {
         .expect(400, 'missing form metadata', done)
     })
 
+    it('requires non-empty first name', function(done) {
+      entry.Field106 = ''
+      request.post('/hooks')
+        .type('form')
+        .send(entry)
+        .expect(400, 'Registration invalid: no First Name', done)
+    })
+
+    it('requires non-empty last name', function(done) {
+      entry.Field107 = ''
+      request.post('/hooks')
+        .type('form')
+        .send(entry)
+        .expect(400, 'Registration invalid: no Last Name', done)
+    })
+
+    it('requires non-empty e-mail', function(done) {
+      entry.Field114 = ''
+      request.post('/hooks')
+        .type('form')
+        .send(entry)
+        .expect(400, 'Registration invalid: no Email', done)
+    })
+
     it('rejects entry with HandshakeKey when not expected', function(done) {
       entry.HandshakeKey = 'foo'
 
