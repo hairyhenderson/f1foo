@@ -1,9 +1,11 @@
-[![Stories in Ready](https://badge.waffle.io/hairyhenderson/f1foo.png?label=ready&title=Ready)](https://waffle.io/hairyhenderson/f1foo)
 [![Build Status][travis-image]][travis-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![Current Version][npm-image]][npm-url]
+
+[![Stories in Ready][waffle-ready-image]][waffle-url]
+[![Stories In Progress][waffle-progress-image]][waffle-url]
 
 # f1foo
 
@@ -163,3 +165,7 @@ Copyright (c) 2014-2015 Dave Henderson
 
 [npm-image]: https://img.shields.io/npm/v/f1foo.svg?style=flat
 [npm-url]: https://npmjs.org/package/f1foo
+
+[waffle-ready-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=ready&title=Ready
+[waffle-progress-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=in+progress&title=In+Progress
+[waffle-url]: https://waffle.io/hairyhenderson/f1foo
