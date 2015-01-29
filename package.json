@@ -28,8 +28,8 @@
     "body-parser": "~1.10.2",
     "debug": "~2.1.1",
     "express": "~4.11.1",
-    "fellowshipone": "~0.0.2",
-    "lodash": "~2.4.1",
+    "fellowshipone": "~0.1.0",
+    "lodash": "~3.0.0",
     "morgan": "~1.5.1",
     "passport": "~0.2.1",
     "request": "~2.51.0"
@@ -44,7 +44,7 @@
     "jshint": "~2.6.0",
     "mocha": "~2.1.0",
     "passport-anonymous": "~1.0.1",
-    "should": "~4.6.1",
+    "should": "~4.6.2",
     "sinon": "~1.12.2",
     "supertest": "~0.15.0"
   },
