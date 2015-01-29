@@ -1,11 +1,13 @@
 language: node_js
 node_js:
-  - 0.10
-  - 0.11
+- 0.1
+- 0.11
 notifications:
   email: false
+  slack:
+    secure: ZXzgXYoby8pgSbCnxhEt1VRHxX4PQvTr0SZhsKp4EQQm7BOmhrwMiUoTr89q8mLVJnmla7xQQ1si5V5SdI5wL/aDjPLvYmUUHcjt/iJAAUuoqlrLXqBHJR+9FONWNbFZCIfYKgQ5etHFDbdCEu4KI+4YhEVLUf8eQX3WZcMjT5A=
 after_script:
-  - cat coverage/lcov.info | codeclimate
+- cat coverage/lcov.info | codeclimate
 addons:
   code_climate:
     repo_token:
