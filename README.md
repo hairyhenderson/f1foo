@@ -119,6 +119,17 @@ _Optional._
 Controls the [debug](https://npmjs.org/package/debug) logs to aid with troubleshooting.
 Try `DEBUG=f1foo` to see f1foo's debug logs, or `DEBUG=*` to see all debug logs.
 
+### `NEW_STATUS`
+
+_Optional._
+
+Defaults to `New from Website`.
+
+When creating a Person record as a result of a form submission, the Person must be
+assigned a [Status](http://developer.fellowshipone.com/docs/v1/People/Statuses.help).
+This variable is used to look up the Status by `name`. To create new People with
+different Statuses, set this variable, e.g. `NEW_STATUS='New from Wufoo'`.
+
 ## Usage
 
 Once f1foo is [configured](#Configuration) and [running](#Installation), add
