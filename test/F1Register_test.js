@@ -280,7 +280,9 @@ describe('F1Register', function() {
 
   describe('ensureCreated', function() {
     it('creates new person record when person is null', function(done) {
-      _f1reg.expects('createPerson').yields()
+      _f1reg.expects('createPerson').yields(null, {
+        person: person
+      })
 
       f1reg.ensureCreated(sub, null, function(err, reg, person) {
         reg.should.eql(sub)
@@ -471,7 +473,9 @@ describe('F1Register', function() {
 
       f1reg.createPerson(sub, function(err, result) {
         should(err).not.exist
-        result.should.eql(person)
+        result.should.eql({
+          person: person
+        })
 
         verifyAll()
         done()
