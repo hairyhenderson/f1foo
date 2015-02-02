@@ -14,16 +14,6 @@ An integration between Wufoo's WebHooks and Fellowship One's REST API.
 It allows Wufoo to be used for event registration (and other) forms, while being
 able to track registrations within Fellowship One.
 
-## Features
-
-- [x] Accepts POSTs from Wufoo webhooks, supports Handshake Key
-- [ ] auto-matching for existing Person records
- - when there's more than 1 record which matches first/last/e-mail, either do nothing,
-   or notify someone (by e-mail?)
-- [ ] for non-existing Person records, either:
- - create a new record automatically from provided info, need to be able to (from the form, perhaps a hidden field) say whether the person is an event-only attendee or something else (newcomer? visitor? attendee?)
- - don't create a new record but notify someone by e-mail so they can optionally create a record manually for this person (?)
-
 ## Installation
 
 This application is best used on a PaaS cloud provider like Heroku, Cloud Foundry,
