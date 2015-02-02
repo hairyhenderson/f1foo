@@ -64,11 +64,56 @@ api.route('/Households')
 api.route('/People/New')
   .get(function(req, res) {
     res.status(200).send({
-      person: {}
+      person: {
+        '@id': ''
+      }
     })
   })
 api.route('/People')
   .post(function(req, res) {
-    res.status(201).send()
+    res.status(201).send({
+      person: {
+        '@id': '1'
+      }
+    })
+  })
+api.route('/People/:id/Communications/New')
+  .get(function(req, res) {
+    res.status(200).send({
+      communication: {
+        '@id': ''
+      }
+    })
+  })
+api.route('/People/:id/Communications')
+  .post(function(req, res) {
+    res.status(201).send({
+      communication: {
+        '@id': ''
+      }
+    })
+  })
+api.route('/Communications/CommunicationTypes')
+  .get(function(req, res) {
+    res.status(200).send({
+      communicationTypes: {
+        communicationType: [{
+          "@id": "1",
+          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/1",
+          "@generalType": "Telephone",
+          "name": "Home Phone"
+        }, {
+          "@id": "5",
+          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/5",
+          "@generalType": "Email",
+          "name": "Home Email"
+        }, {
+          "@id": "4",
+          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/4",
+          "@generalType": "Email",
+          "name": "Email"
+        }, ]
+      }
+    })
   })
 module.exports = api
