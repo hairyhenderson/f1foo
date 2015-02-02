@@ -98,21 +98,21 @@ api.route('/Communications/CommunicationTypes')
     res.status(200).send({
       communicationTypes: {
         communicationType: [{
-          "@id": "1",
-          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/1",
-          "@generalType": "Telephone",
-          "name": "Home Phone"
+          '@id': '1',
+          '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/1',
+          '@generalType': 'Telephone',
+          name: 'Home Phone'
         }, {
-          "@id": "5",
-          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/5",
-          "@generalType": "Email",
-          "name": "Home Email"
+          '@id': '5',
+          '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/5',
+          '@generalType': 'Email',
+          name: 'Home Email'
         }, {
-          "@id": "4",
-          "@uri": "https://mbcowion.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/4",
-          "@generalType": "Email",
-          "name": "Email"
-        }, ]
+          '@id': '4',
+          '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/4',
+          '@generalType': 'Email',
+          name: 'Email'
+        }]
       }
     })
   })
