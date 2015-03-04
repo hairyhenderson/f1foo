@@ -11,7 +11,7 @@ describe('API', function() {
 
     app = require('../app')
     request = request(app)
-    var port = request.get().app.address().port
+    var port = request.get('').app.address().port
     var path = '/f1/v1'
     process.env.F1_CONFIG = JSON.stringify({
       'apiURL': 'http://localhost:' + port + path,
