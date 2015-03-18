@@ -65,11 +65,51 @@ describe('API', function() {
             Page: '1',
             Type: 'email',
             ID: 'Field114'
+          }, {
+            Title: 'Address',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: '',
+            DefaultVal: '',
+            Page: '1',
+            SubFields: [{
+              DefaultVal: '',
+              ID: 'Field108',
+              Label: 'Street Address'
+            }, {
+              DefaultVal: '',
+              ID: 'Field109',
+              Label: 'Address Line 2'
+            }, {
+              DefaultVal: '',
+              ID: 'Field110',
+              Label: 'City'
+            }, {
+              DefaultVal: '',
+              ID: 'Field111',
+              Label: 'State / Province / Region'
+            }, {
+              DefaultVal: '',
+              ID: 'Field112',
+              Label: 'Postal / Zip Code'
+            }, {
+              DefaultVal: '',
+              ID: 'Field113',
+              Label: 'Country'
+            }],
+            Type: 'address',
+            ID: 'Field108'
           }]
         }),
         Field106: 'Fred',
         Field107: 'Flinstone',
         Field114: 'fred@flinstone.com',
+        Field108: '301 Cobblestone Way',
+        Field109: '',
+        Field110: 'Bedrock',
+        Field111: 'South Dakota',
+        Field112: '12345',
+        Field113: 'United States',
         IP: '127.0.0.1',
         HandshakeKey: ''
       }

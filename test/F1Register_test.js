@@ -54,14 +54,22 @@ describe('F1Register', function() {
     _communicationTypes.restore()
   })
 
-  var sub, status, household, person, emailComm, emailCommType
+  var sub, status, household, person, emailComm, emailCommType, addressType, address
   beforeEach(function() {
     sub = {
       Name: {
         First: 'Fred',
         Last: 'Flintstone'
       },
-      Email: 'fred@flintstone.com'
+      Email: 'fred@flintstone.com',
+      Address: {
+        'Street Address': '301 Cobblestone Way',
+        'Address Line 2': '',
+        'City': 'Bedrock',
+        'State / Province / Region': 'South Dakota',
+        'Postal / Zip Code': '12345',
+        'Country': 'United States'
+      }
     }
     status = {
       '@id': '110',
@@ -71,9 +79,9 @@ describe('F1Register', function() {
     household = {
       '@id': '12345678',
       '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Households/12345678',
-      householdName: 'Fred Flintstone',
-      householdSortName: 'Flintstone',
-      householdFirstName: 'Fred',
+      householdName: sub.Name.First + ' ' + sub.Name.Last,
+      householdSortName: sub.Name.Last,
+      householdFirstName: sub.Name.First,
       createdDate: '2015-01-01T00:00:00',
       lastUpdatedDate: '2015-01-01T00:00:00'
     }
@@ -81,8 +89,8 @@ describe('F1Register', function() {
       '@id': '123',
       '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/People/123',
       status: status,
-      firstName: 'Fred',
-      lastName: 'Flintstone',
+      firstName: sub.Name.First,
+      lastName: sub.Name.Last,
       '@householdID': household['@id']
     }
     emailCommType = {
@@ -93,13 +101,41 @@ describe('F1Register', function() {
     }
     emailComm = {
       '@id': '123456',
-      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Households/123456',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/123456',
       person: _.pick(person, ['@id', '@uri']),
       communicationType: emailCommType,
       communicationGeneralType: 'Email',
       communicationValue: sub.Email,
       searchCommunicationValue: sub.Email,
       preferred: "true",
+      createdDate: '2015-01-01T00:00:00',
+      lastUpdatedDate: '2015-01-01T00:00:00'
+    }
+    addressType = {
+      '@id': '1',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Addresses/AddressTypes/1',
+      name: 'Primary'
+    }
+    address = {
+      '@id': '1234',
+      '@uri': 'https://demo.fellowshiponeapi.com/v1/Addresses/1234',
+      person: _.pick(person, ['@id', '@uri']),
+      addressType: addressType,
+      address1: sub.Address['Street Address'],
+      address2: sub.Address['Address Line 2'],
+      address3: null,
+      city: sub.Address.City,
+      postalCode: sub.Address['Postal / Zip Code'],
+      county: null,
+      country: sub.Address.Country,
+      stProvince: sub.Address['State / Province / Region'],
+      carrierRoute: null,
+      deliveryPoint: null,
+      addressDate: '2015-01-01T00:00:00',
+      addressComment: null,
+      uspsVerified: 'false',
+      addressVerifiedDate: null,
+      lastVerificationAttemptDate: null,
       createdDate: '2015-01-01T00:00:00',
       lastUpdatedDate: '2015-01-01T00:00:00'
     }
@@ -307,14 +343,36 @@ describe('F1Register', function() {
   })
 
   describe('createPerson', function() {
-    var comms, _comms
+    var ADDR_OPTIONAL_FIELDS = [
+      '@id',
+      '@uri',
+      'address3',
+      'county',
+      'carrierRoute',
+      'deliveryPoint',
+      'addressDate',
+      'addressComment',
+      'uspsVerified',
+      'addressVerifiedDate',
+      'lastVerificationAttemptDate',
+      'createdDate',
+      'lastUpdatedDate'
+    ]
+
+    var comms, _comms, addrs, _addrs, addrTypes, _addrTypes
     beforeEach(function() {
       comms = new F1.PersonCommunications(f1, person['@id'])
       _comms = sinon.mock(comms)
+      addrTypes = new F1.AddressTypes(f1)
+      _addrTypes = sinon.mock(addrTypes)
+      addrs = new F1.PersonAddresses(f1, person['@id'])
+      _addrs = sinon.mock(addrs)
     })
 
     afterEach(function() {
       _comms.restore()
+      _addrTypes.restore()
+      _addrs.restore()
     })
 
     function verifyAll() {
@@ -326,6 +384,8 @@ describe('F1Register', function() {
       _F1.verify()
       _communicationTypes.verify()
       _comms.verify()
+      _addrTypes.verify()
+      _addrs.verify()
     }
 
     it('yields error when status listing fails', function(done) {
@@ -445,6 +505,96 @@ describe('F1Register', function() {
       _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(comms)
       _comms.expects('create').withArgs(
         _.omit(emailComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate'])
+      ).yields('error')
+
+      f1reg.createPerson(sub, function(err, person) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when address type listing fails', function(done) {
+      _statuses.expects('list').yields(null, [status])
+
+      _households.expects('create').withArgs(
+          _.omit(household, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']))
+        .yields(null, {
+          household: household
+        })
+      _people.expects('create')
+        .withArgs(_.omit(person, ['@id', '@uri'])).yields(null, {
+          person: person
+        })
+      _communicationTypes.expects('list').yields(null, [emailCommType])
+      _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(comms)
+      _comms.expects('create').withArgs(
+        _.omit(emailComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate'])
+      ).yields(null, emailComm)
+      _F1.expects('AddressTypes').withArgs(f1).returns(addrTypes)
+      _addrTypes.expects('list').yields('error')
+
+      f1reg.createPerson(sub, function(err, person) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when address type listing missing desired new address type', function(done) {
+      _statuses.expects('list').yields(null, [status])
+
+      _households.expects('create').withArgs(
+          _.omit(household, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']))
+        .yields(null, {
+          household: household
+        })
+      _people.expects('create')
+        .withArgs(_.omit(person, ['@id', '@uri'])).yields(null, {
+          person: person
+        })
+      _communicationTypes.expects('list').yields(null, [emailCommType])
+      _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(comms)
+      _comms.expects('create').withArgs(
+        _.omit(emailComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate'])
+      ).yields(null, emailComm)
+      _F1.expects('AddressTypes').withArgs(f1).returns(addrTypes)
+      _addrTypes.expects('list').yields(null, [{
+        name: 'foo'
+      }])
+
+      f1reg.createPerson(sub, function(err, person) {
+        err.should.eql('No AddressType named `Primary` could be found!')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when address creation fails', function(done) {
+      _statuses.expects('list').yields(null, [status])
+
+      _households.expects('create').withArgs(
+          _.omit(household, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']))
+        .yields(null, {
+          household: household
+        })
+      _people.expects('create')
+        .withArgs(_.omit(person, ['@id', '@uri'])).yields(null, {
+          person: person
+        })
+      _communicationTypes.expects('list').yields(null, [emailCommType])
+      _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(comms)
+      _comms.expects('create').withArgs(
+        _.omit(emailComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate'])
+      ).yields(null, emailComm)
+      _F1.expects('AddressTypes').withArgs(f1).returns(addrTypes)
+      _addrTypes.expects('list').yields(null, [addressType])
+      _F1.expects('PersonAddresses').withArgs(f1, person['@id']).returns(addrs)
+      _addrs.expects('create').withArgs(
+        _.omit(address, ADDR_OPTIONAL_FIELDS)
       ).yields('error')
 
       f1reg.createPerson(sub, function(err, person) {
