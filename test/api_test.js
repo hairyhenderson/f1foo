@@ -99,6 +99,24 @@ describe('API', function() {
             }],
             Type: 'address',
             ID: 'Field108'
+          }, {
+            Title: 'Home Phone',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: 'leftHalf',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'phone',
+            ID: 'Field4'
+          }, {
+            Title: 'Mobile Phone',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: 'rightHalf',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'phone',
+            ID: 'Field5'
           }]
         }),
         Field106: 'Fred',
@@ -110,6 +128,8 @@ describe('API', function() {
         Field111: 'South Dakota',
         Field112: '12345',
         Field113: 'United States',
+        Field4: '555-555-1212',
+        Field5: '543-210-0123',
         IP: '127.0.0.1',
         HandshakeKey: ''
       }

@@ -125,6 +125,24 @@ describe('WufooTranslator', function() {
             }],
             'Type': 'address',
             'ID': 'Field108'
+          }, {
+            Title: 'Home Phone',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: 'leftHalf',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'phone',
+            ID: 'Field4'
+          }, {
+            Title: 'Mobile Phone',
+            Instructions: '',
+            IsRequired: '0',
+            ClassNames: 'rightHalf',
+            DefaultVal: '',
+            Page: '1',
+            Type: 'phone',
+            ID: 'Field5'
           }]
         }),
         FormStructure: JSON.stringify({
@@ -151,6 +169,8 @@ describe('WufooTranslator', function() {
         Field111: "South Dakota",
         Field112: "12345",
         Field113: "United States",
+        Field4: '555-555-1212',
+        Field5: '543-210-1234',
         CreatedBy: "public",
         DateCreated: "2014-12-03 18:07:46",
         EntryId: "6",
@@ -171,6 +191,8 @@ describe('WufooTranslator', function() {
             'Postal / Zip Code': '12345',
             'Country': 'United States'
           },
+          'Home Phone': '555-555-1212',
+          'Mobile Phone': '543-210-1234',
           metadata: {
             CreatedBy: "public",
             DateCreated: "2014-12-03 18:07:46",
