@@ -41,7 +41,7 @@ describe('F1Register', function() {
     _F1.restore()
   })
 
-  var sub, status, household, person, emailComm, emailCommType, addressType, address, hPhoneComm, hPhoneCommType
+  var sub, status, household, person, emailComm, emailCommType, addressType, address, hPhoneComm, hPhoneCommType, mPhoneComm, mPhoneCommType
   beforeEach(function() {
     sub = {
       Name: {
@@ -58,6 +58,7 @@ describe('F1Register', function() {
         'Country': 'United States'
       },
       'Home Phone': '555-555-1212',
+      'Mobile Phone': '543-210-1234',
     }
     status = {
       '@id': '110',
@@ -113,6 +114,24 @@ describe('F1Register', function() {
       communicationGeneralType: 'Telephone',
       communicationValue: sub['Home Phone'],
       searchCommunicationValue: sub['Home Phone'],
+      preferred: "true",
+      createdDate: '2015-01-01T00:00:00',
+      lastUpdatedDate: '2015-01-01T00:00:00'
+    }
+    mPhoneCommType = {
+      '@id': '1',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/CommunicationTypes/1',
+      '@generalType': 'Telephone',
+      name: 'Mobile Phone'
+    }
+    mPhoneComm = {
+      '@id': '1234566',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/Communications/1234566',
+      person: _.pick(person, ['@id', '@uri']),
+      communicationType: mPhoneCommType,
+      communicationGeneralType: 'Telephone',
+      communicationValue: sub['Mobile Phone'],
+      searchCommunicationValue: sub['Mobile Phone'],
       preferred: "true",
       createdDate: '2015-01-01T00:00:00',
       lastUpdatedDate: '2015-01-01T00:00:00'
@@ -715,7 +734,7 @@ describe('F1Register', function() {
     })
 
     it('delegates to F1 API', function(done) {
-      _f1reg.expects('getCommunicationType').yields(null, emailCommType)
+      _f1reg.expects('getCommunicationType').withArgs('Email').yields(null, emailCommType)
       _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(pcomms)
       _pcomms.expects('create').withArgs(
         _.omit(emailComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']), 'callback')
@@ -726,7 +745,7 @@ describe('F1Register', function() {
     })
   })
 
-  describe('createHomePhone', function() {
+  describe('createMobilePhone', function() {
     var pcomms, _pcomms
     beforeEach(function() {
       pcomms = new F1.PersonCommunications(f1, person['@id'])
@@ -744,7 +763,7 @@ describe('F1Register', function() {
       _pcomms.verify()
     }
 
-    it('no-op when no Home Phone field in registration', function(done) {
+    it('no-op when no Mobile Phone field in registration', function(done) {
       sub['Home Phone'] = ''
 
       f1reg.createHomePhone(person, sub, function(err, response) {
@@ -767,12 +786,64 @@ describe('F1Register', function() {
     })
 
     it('delegates to F1 API', function(done) {
-      _f1reg.expects('getCommunicationType').withArgs('HomePhone').yields(null, hPhoneCommType)
+      _f1reg.expects('getCommunicationType').withArgs('Home Phone').yields(null, hPhoneCommType)
       _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(pcomms)
       _pcomms.expects('create').withArgs(
         _.omit(hPhoneComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']), 'callback')
 
       f1reg.createHomePhone(person, sub, 'callback')
+      verifyAll()
+      done()
+    })
+  })
+
+  describe('createMobilePhone', function() {
+    var pcomms, _pcomms
+    beforeEach(function() {
+      pcomms = new F1.PersonCommunications(f1, person['@id'])
+      _pcomms = sinon.mock(pcomms)
+    })
+
+    afterEach(function() {
+      _pcomms.restore()
+    })
+
+    function verifyAll() {
+      _f1.verify()
+      _f1reg.verify()
+      _F1.verify()
+      _pcomms.verify()
+    }
+
+    it('no-op when no Mobile Phone field in registration', function(done) {
+      sub['Mobile Phone'] = ''
+
+      f1reg.createMobilePhone(person, sub, function(err, response) {
+        should(err).not.exist
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('yields error when comm type listing fails', function(done) {
+      _f1reg.expects('getCommunicationType').yields('error')
+
+      f1reg.createMobilePhone(person, sub, function(err, response) {
+        err.should.eql('error')
+
+        verifyAll()
+        done()
+      })
+    })
+
+    it('delegates to F1 API', function(done) {
+      _f1reg.expects('getCommunicationType').withArgs('Mobile Phone').yields(null, mPhoneCommType)
+      _F1.expects('PersonCommunications').withArgs(f1, person['@id']).returns(pcomms)
+      _pcomms.expects('create').withArgs(
+        _.omit(mPhoneComm, ['@id', '@uri', 'createdDate', 'lastUpdatedDate']), 'callback')
+
+      f1reg.createMobilePhone(person, sub, 'callback')
       verifyAll()
       done()
     })
