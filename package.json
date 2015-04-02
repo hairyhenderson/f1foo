@@ -49,6 +49,6 @@
     "supertest": "~0.15.0"
   },
   "optionalDependencies": {
-    "newrelic": "^1.18.0"
+    "newrelic": "^1.18.1"
   }
 }
