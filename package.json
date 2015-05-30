@@ -29,10 +29,10 @@
     "debug": "~2.2.0",
     "express": "~4.12.4",
     "fellowshipone": "~0.3.2",
-    "lodash": "~3.9.2",
+    "lodash": "~3.9.3",
     "morgan": "~1.5.3",
     "passport": "~0.2.2",
-    "request": "~2.55.0"
+    "request": "~2.56.0"
   },
   "engines": {
     "node": "0.10.x"
