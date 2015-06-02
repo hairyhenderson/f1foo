@@ -24,7 +24,7 @@
     "test": "make test-travis"
   },
   "dependencies": {
-    "async": "~1.0.0",
+    "async": "~1.1.0",
     "body-parser": "~1.12.4",
     "debug": "~2.2.0",
     "express": "~4.12.4",
@@ -32,7 +32,7 @@
     "lodash": "~3.9.3",
     "morgan": "~1.5.3",
     "passport": "~0.2.2",
-    "request": "~2.56.0"
+    "request": "~2.57.0"
   },
   "engines": {
     "node": "0.10.x"
@@ -41,7 +41,7 @@
   "devDependencies": {
     "codeclimate-test-reporter": "~0.0.4",
     "istanbul": "~0.3.14",
-    "jshint": "~2.7.0",
+    "jshint": "~2.8.0",
     "mocha": "~2.2.5",
     "passport-anonymous": "~1.0.1",
     "should": "~6.0.3",
