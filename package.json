@@ -1,6 +1,6 @@
 {
   "name": "f1foo",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "An integration between Wufoo's WebHooks and Fellowship One's REST API.",
   "keywords": [
     "wufoo",
