@@ -6,7 +6,16 @@ try {
 } catch (e) {
   debug(e)
 }
+
 var app = require('../app')
+
+try {
+  var airbrake = require('airbrake').createClient(process.env.AIRBRAKE_KEY)
+  app.use(airbrake.expressHandler())
+  debug('loaded airbrake')
+} catch (e) {
+  debug(e)
+}
 
 app.set('port', (process.env.VCAP_APP_PORT || process.env.PORT || 3000))
 
