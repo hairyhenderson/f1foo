@@ -24,7 +24,7 @@
     "test": "make test-travis"
   },
   "dependencies": {
-    "async": "~1.1.0",
+    "async": "~1.2.0",
     "body-parser": "~1.12.4",
     "debug": "~2.2.0",
     "express": "~4.12.4",
@@ -50,6 +50,6 @@
   },
   "optionalDependencies": {
     "airbrake": "~0.3.8",
-    "newrelic": "~1.19.2"
+    "newrelic": "~1.20.0"
   }
 }
