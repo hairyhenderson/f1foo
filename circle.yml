@@ -1,0 +1,29 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker build -t $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest .
+
+test:
+  pre:
+    - docker run -p 3000:3000 -d --name test $CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME:latest
+  override:
+    - |
+      set -e
+      sleep 5
+      STATUSCODE=$( curl --connect-timeout 60 \
+        --max-time 60 \
+        --silent \
+        --write-out "%{http_code}" \
+        http://localhost:3000/ )
+      EXITCODE=$?
+      docker logs test
+      if [ $EXITCODE -ne 0 ]; then
+        echo "Error code $EXITCODE";
+        exit $EXITCODE
+      elif [ $STATUSCODE -ne 200 ]; then
+        echo "Failed with $STATUSCODE";
+        exit 1
+      fi
