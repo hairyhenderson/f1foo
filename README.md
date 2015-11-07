@@ -1,8 +1,12 @@
 [![Build Status][travis-image]][travis-url]
+[![Docker Image Build Status][circle-image]][circle-url]
 [![Code Coverage][coverage-image]][coverage-url]
 [![Code Climate][climate-image]][climate-url]
 [![Dependency Status][gemnasium-image]][gemnasium-url]
 [![Current Version][npm-image]][npm-url]
+
+[![Docker Stars][docker-stars-image]][docker-url]
+[![Docker Pulls][docker-pulls-image]][docker-url]
 
 [![Stories in Ready][waffle-ready-image]][waffle-url]
 [![Stories In Progress][waffle-progress-image]][waffle-url]
@@ -155,6 +159,9 @@ Copyright (c) 2014-2015 Dave Henderson
 [travis-image]: https://img.shields.io/travis/hairyhenderson/f1foo.svg?style=flat
 [travis-url]: https://travis-ci.org/hairyhenderson/f1foo
 
+[circle-image]: https://img.shields.io/circleci/project/hairyhenderson/f1foo.svg?label=docker+build
+[circle-url]: https://circleci.com/gh/hairyhenderson/f1foo
+
 [coverage-image]: https://img.shields.io/codeclimate/coverage/github/hairyhenderson/f1foo.svg?style=flat
 [coverage-url]: https://codeclimate.com/github/hairyhenderson/f1foo
 
@@ -166,6 +173,10 @@ Copyright (c) 2014-2015 Dave Henderson
 
 [npm-image]: https://img.shields.io/npm/v/f1foo.svg?style=flat
 [npm-url]: https://npmjs.org/package/f1foo
+
+[docker-stars-image]: https://img.shields.io/docker/stars/hairyhenderson/f1foo.svg
+[docker-pulls-image]: https://img.shields.io/docker/pulls/hairyhenderson/f1foo.svg
+[docker-url]: https://hub.docker.com/r/hairyhenderson/f1foo
 
 [waffle-ready-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=ready&title=Ready
 [waffle-progress-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=in+progress&title=In+Progress
