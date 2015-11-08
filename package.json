@@ -31,7 +31,7 @@
     "fellowshipone": "~0.3.2",
     "lodash": "~3.10.1",
     "morgan": "~1.6.1",
-    "passport": "~0.3.0",
+    "passport": "~0.3.2",
     "request": "~2.65.0"
   },
   "engines": {
