@@ -1,50 +1,48 @@
-'use strict';
-
 var should = require('should')
 var WufooTranslator = require('../lib/WufooTranslator')
 
-describe('WufooTranslator', function() {
+describe('WufooTranslator', function () {
   var wt
 
-  beforeEach(function() {
+  beforeEach(function () {
     wt = new WufooTranslator()
   })
 
-  describe('translate', function() {
-    it('requires FieldStructure', function(done) {
-      wt.translate({}, function(err, sub) {
+  describe('translate', function () {
+    it('requires FieldStructure', function (done) {
+      wt.translate({}, function (err, sub) {
         err.should.not.be.empty
         done()
       })
     })
-    it('requires FieldStructure to be a string', function(done) {
+    it('requires FieldStructure to be a string', function (done) {
       wt.translate({
         FieldStructure: []
-      }, function(err, sub) {
+      }, function (err, sub) {
         err.should.not.be.empty
         done()
       })
     })
-    it('requires FieldStrucutre to be a JSON string', function(done) {
+    it('requires FieldStrucutre to be a JSON string', function (done) {
       wt.translate({
         FieldStructure: 'foo'
-      }, function(err, sub) {
+      }, function (err, sub) {
         err.should.not.be.empty
         done()
       })
     })
 
-    it('returns empty object given no fields', function(done) {
+    it('returns empty object given no fields', function (done) {
       wt.translate({
         FieldStructure: '{ "Fields": [] }'
-      }, function(err, sub) {
+      }, function (err, sub) {
         should(err).be.empty
         sub.should.eql({})
         done()
       })
     })
 
-    it('returns object with proper field names', function(done) {
+    it('returns object with proper field names', function (done) {
       wt.translate({
         Field1: 'Fred',
         FieldStructure: JSON.stringify({
@@ -53,7 +51,8 @@ describe('WufooTranslator', function() {
             ID: 'Field1'
           }]
         })
-      }, function(err, sub) {
+      }, function (err, sub) {
+        should(err).not.exist
         sub.should.eql({
           Name: 'Fred'
         })
@@ -61,7 +60,7 @@ describe('WufooTranslator', function() {
       })
     })
 
-    it('can handle objects with subfields', function(done) {
+    it('can handle objects with subfields', function (done) {
       wt.translate({
         FieldStructure: JSON.stringify({
           Fields: [{
@@ -160,23 +159,24 @@ describe('WufooTranslator', function() {
           'DateUpdated': '2014-12-03 17:51:07',
           'Hash': '0123456789abcd'
         }),
-        Field106: "Fred",
-        Field107: "Flinstone",
-        Field114: "fred@flinstone.com",
-        Field108: "301 Cobblestone Way",
-        Field109: "",
-        Field110: "Bedrock",
-        Field111: "South Dakota",
-        Field112: "12345",
-        Field113: "United States",
+        Field106: 'Fred',
+        Field107: 'Flinstone',
+        Field114: 'fred@flinstone.com',
+        Field108: '301 Cobblestone Way',
+        Field109: '',
+        Field110: 'Bedrock',
+        Field111: 'South Dakota',
+        Field112: '12345',
+        Field113: 'United States',
         Field4: '555-555-1212',
         Field5: '543-210-1234',
-        CreatedBy: "public",
-        DateCreated: "2014-12-03 18:07:46",
-        EntryId: "6",
-        IP: "127.0.0.1",
-        HandshakeKey: ""
-      }, function(err, sub) {
+        CreatedBy: 'public',
+        DateCreated: '2014-12-03 18:07:46',
+        EntryId: '6',
+        IP: '127.0.0.1',
+        HandshakeKey: ''
+      }, function (err, sub) {
+        should(err).not.exist
         sub.should.eql({
           Name: {
             First: 'Fred',
@@ -194,11 +194,11 @@ describe('WufooTranslator', function() {
           'Home Phone': '555-555-1212',
           'Mobile Phone': '543-210-1234',
           metadata: {
-            CreatedBy: "public",
-            DateCreated: "2014-12-03 18:07:46",
-            EntryId: "6",
-            IP: "127.0.0.1",
-            HandshakeKey: ""
+            CreatedBy: 'public',
+            DateCreated: '2014-12-03 18:07:46',
+            EntryId: '6',
+            IP: '127.0.0.1',
+            HandshakeKey: ''
           }
         })
         done()

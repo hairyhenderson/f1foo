@@ -11,6 +11,8 @@
 [![Stories in Ready][waffle-ready-image]][waffle-url]
 [![Stories In Progress][waffle-progress-image]][waffle-url]
 
+[![JS Standard Style][js-standard-image]][js-standard-url]
+
 # f1foo
 
 An integration between Wufoo's WebHooks and Fellowship One's REST API.
@@ -181,3 +183,7 @@ Copyright (c) 2014-2015 Dave Henderson
 [waffle-ready-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=ready&title=Ready
 [waffle-progress-image]: https://badge.waffle.io/hairyhenderson/f1foo.svg?label=in+progress&title=In+Progress
 [waffle-url]: https://waffle.io/hairyhenderson/f1foo
+
+[js-standard-image]: https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat
+[js-standard-url]: http://standardjs.com/
+

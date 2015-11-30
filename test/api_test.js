@@ -1,14 +1,10 @@
-'use strict';
-var util = require('util')
-var sinon = require('sinon')
-var should = require('should')
+require('should')
 var request = require('supertest')
 
-describe('API', function() {
-  var app, r
+describe('API', function () {
+  var app
 
-  before(function() {
-
+  before(function () {
     app = require('../app')
     request = request(app)
     var port = request.get('').app.address().port
@@ -27,15 +23,15 @@ describe('API', function() {
     app.use(path, f1api)
   })
 
-  it('GET / responds with 200', function(done) {
+  it('GET / responds with 200', function (done) {
     request.get('/')
       .expect('Content-Length', 0)
       .expect(200, done)
   })
 
-  describe('POST /hooks', function() {
+  describe('POST /hooks', function () {
     var entry
-    beforeEach(function() {
+    beforeEach(function () {
       entry = {
         FieldStructure: JSON.stringify({
           Fields: [{
@@ -136,7 +132,7 @@ describe('API', function() {
       delete process.env.WUFOO_HANDSHAKE_KEY
     })
 
-    it('accepts well-formed entry', function(done) {
+    it('accepts well-formed entry', function (done) {
       var body = entry
 
       request.post('/hooks')
@@ -145,7 +141,7 @@ describe('API', function() {
         .expect(200, done)
     })
 
-    it('requires FieldStructure property', function(done) {
+    it('requires FieldStructure property', function (done) {
       request.post('/hooks')
         .type('form')
         .send({
@@ -154,7 +150,7 @@ describe('API', function() {
         .expect(400, 'missing form metadata', done)
     })
 
-    it('requires non-empty first name', function(done) {
+    it('requires non-empty first name', function (done) {
       entry.Field106 = ''
       request.post('/hooks')
         .type('form')
@@ -162,7 +158,7 @@ describe('API', function() {
         .expect(400, 'Registration invalid: no First Name', done)
     })
 
-    it('requires non-empty last name', function(done) {
+    it('requires non-empty last name', function (done) {
       entry.Field107 = ''
       request.post('/hooks')
         .type('form')
@@ -170,7 +166,7 @@ describe('API', function() {
         .expect(400, 'Registration invalid: no Last Name', done)
     })
 
-    it('requires non-empty e-mail', function(done) {
+    it('requires non-empty e-mail', function (done) {
       entry.Field114 = ''
       request.post('/hooks')
         .type('form')
@@ -178,7 +174,7 @@ describe('API', function() {
         .expect(400, 'Registration invalid: no Email', done)
     })
 
-    it('rejects entry with HandshakeKey when not expected', function(done) {
+    it('rejects entry with HandshakeKey when not expected', function (done) {
       entry.HandshakeKey = 'foo'
 
       request.post('/hooks')
@@ -186,7 +182,7 @@ describe('API', function() {
         .send(entry)
         .expect(401, done)
     })
-    it('rejects entry with non-matching HandshakeKey', function(done) {
+    it('rejects entry with non-matching HandshakeKey', function (done) {
       process.env.WUFOO_HANDSHAKE_KEY = 'foo'
       entry.HandshakeKey = 'bar'
 
@@ -195,7 +191,7 @@ describe('API', function() {
         .send(entry)
         .expect(401, done)
     })
-    it('accepts entry with empty HandshakeKey', function(done) {
+    it('accepts entry with empty HandshakeKey', function (done) {
       entry.HandshakeKey = ''
 
       request.post('/hooks')
@@ -203,7 +199,7 @@ describe('API', function() {
         .send(entry)
         .expect(200, done)
     })
-    it('accepts entry with matching HandshakeKey', function(done) {
+    it('accepts entry with matching HandshakeKey', function (done) {
       process.env.WUFOO_HANDSHAKE_KEY = 'foo'
       entry.HandshakeKey = 'foo'
 
