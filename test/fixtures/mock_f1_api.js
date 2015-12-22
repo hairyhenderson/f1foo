@@ -1,26 +1,24 @@
 // A minimal mock of the Fellowship One API for testing against
-'use strict';
-
 var express = require('express')
 var passport = require('passport')
 var AnonymousStrategy = require('passport-anonymous').Strategy
 var api = express.Router()
 
-function resource(path, name) {
+function resource (path, name) {
   var obj = {}
   obj[name] = {
     '@id': '1'
   }
-  api.route(path + '/New').get(function(req, res) {
+  api.route(path + '/New').get(function (req, res) {
     res.status(200).send(obj)
   })
-  api.route(path).post(function(req, res) {
+  api.route(path).post(function (req, res) {
     res.status(201).send(obj)
   })
 }
 
-function staticResource(path, reply) {
-  api.route(path).get(function(req, res) {
+function staticResource (path, reply) {
+  api.route(path).get(function (req, res) {
     res.status(200).send(reply)
   })
 }
@@ -35,7 +33,7 @@ api.route('*')
   }))
 
 api.route('/PortalUser/AccessToken')
-  .post(function(req, res) {
+  .post(function (req, res) {
     res.setHeader('oauth_token', '1')
     res.setHeader('oauth_token_secret', '1')
     res.setHeader('content-location', '/foo')
@@ -43,23 +41,23 @@ api.route('/PortalUser/AccessToken')
   })
 
 staticResource('/People/Search', {
-  "results": {
-    "@count": "0",
-    "@pageNumber": "",
-    "@totalRecords": "0",
-    "@additionalPages": "0"
+  'results': {
+    '@count': '0',
+    '@pageNumber': '',
+    '@totalRecords': '0',
+    '@additionalPages': '0'
   }
 })
 staticResource('/People/Statuses', {
   statuses: {
     status: [{
-      "@id": "110",
-      "@uri": "https://dc.staging.fellowshiponeapi.com/v1/People/Statuses/110",
-      "name": "New from Website"
+      '@id': '110',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/People/Statuses/110',
+      'name': 'New from Website'
     }, {
-      "@id": "12345",
-      "@uri": "https://dc.staging.fellowshiponeapi.com/v1/People/Statuses/12345",
-      "name": "New from Wufoo"
+      '@id': '12345',
+      '@uri': 'https://dc.staging.fellowshiponeapi.com/v1/People/Statuses/12345',
+      'name': 'New from Wufoo'
     }]
   }
 })
