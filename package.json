@@ -25,7 +25,7 @@
   },
   "dependencies": {
     "async": "~1.5.0",
-    "body-parser": "~1.14.1",
+    "body-parser": "~1.15.0",
     "debug": "~2.2.0",
     "express": "~4.13.3",
     "fellowshipone": "~0.3.2",
