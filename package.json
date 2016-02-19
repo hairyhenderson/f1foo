@@ -30,7 +30,7 @@
     "express": "~4.13.3",
     "fellowshipone": "~0.3.2",
     "lodash": "~4.5.0",
-    "morgan": "~1.6.1",
+    "morgan": "~1.7.0",
     "passport": "~0.3.2",
     "request": "~2.67.0"
   },
