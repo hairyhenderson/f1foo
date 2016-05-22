@@ -35,7 +35,7 @@
     "request": "^2.72.0"
   },
   "engines": {
-    "node": ">= 4.3"
+    "node": ">= 6.1"
   },
   "license": "MIT",
   "devDependencies": {
