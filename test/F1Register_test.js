@@ -562,7 +562,7 @@ describe('F1Register', function () {
       }])
 
       f1reg.getResourceByName('AddressTypes', 'foo', function (err, addrType) {
-        should(err).not.exist
+        should.not.exist(err)
         addrType.should.eql({
           name: 'foo'
         })
