@@ -25,7 +25,7 @@ describe('API', function () {
 
   it('GET / responds with 200', function (done) {
     request.get('/')
-      .expect('Content-Length', 0)
+      .expect('Content-Length', '0')
       .expect(200, done)
   })
 
