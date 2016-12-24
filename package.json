@@ -29,7 +29,7 @@
     "debug": "^2.2.0",
     "express": "^4.13.4",
     "fellowshipone": "^0.3.3",
-    "lodash": "^4.12.0",
+    "lodash": "^4.17.3",
     "morgan": "^1.7.0",
     "passport": "^0.3.2"
   },
