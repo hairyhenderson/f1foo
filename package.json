@@ -45,7 +45,7 @@
     "passport-anonymous": "^1.0.1",
     "should": "^11.0.0",
     "sinon": "^2.0.0",
-    "standard": "^8.0.0",
+    "standard": "^9.0.2",
     "supertest": "^3.0.0"
   },
   "optionalDependencies": {
