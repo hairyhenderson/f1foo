@@ -11,7 +11,7 @@ describe('WufooTranslator', function () {
   describe('translate', function () {
     it('requires FieldStructure', function (done) {
       wt.translate({}, function (err, sub) {
-        err.should.not.be.empty
+        should.exist(err)
         done()
       })
     })
@@ -19,7 +19,7 @@ describe('WufooTranslator', function () {
       wt.translate({
         FieldStructure: []
       }, function (err, sub) {
-        err.should.not.be.empty
+        should.exist(err)
         done()
       })
     })
@@ -27,7 +27,7 @@ describe('WufooTranslator', function () {
       wt.translate({
         FieldStructure: 'foo'
       }, function (err, sub) {
-        err.should.not.be.empty
+        should.exist(err)
         done()
       })
     })
@@ -36,7 +36,7 @@ describe('WufooTranslator', function () {
       wt.translate({
         FieldStructure: '{ "Fields": [] }'
       }, function (err, sub) {
-        should(err).be.empty
+        should.not.exist(err)
         sub.should.eql({})
         done()
       })
@@ -52,7 +52,7 @@ describe('WufooTranslator', function () {
           }]
         })
       }, function (err, sub) {
-        should(err).not.exist
+        should.not.exist(err)
         sub.should.eql({
           Name: 'Fred'
         })
@@ -176,7 +176,7 @@ describe('WufooTranslator', function () {
         IP: '127.0.0.1',
         HandshakeKey: ''
       }, function (err, sub) {
-        should(err).not.exist
+        should.not.exist(err)
         sub.should.eql({
           Name: {
             First: 'Fred',
