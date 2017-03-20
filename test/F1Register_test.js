@@ -167,7 +167,7 @@ describe('F1Register', function () {
   describe('searchQuery', function () {
     it('yields query based on valid registration object', function (done) {
       f1reg.searchQuery(sub, function (err, query) {
-        should(err).not.exist
+        should.not.exist(err)
         query.should.eql({
           searchFor: 'Fred Flintstone',
           communication: 'fred@flintstone.com'
@@ -184,7 +184,7 @@ describe('F1Register', function () {
       delete sub.Name
 
       f1reg.validateReg(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -193,7 +193,7 @@ describe('F1Register', function () {
       delete sub.Name.First
 
       f1reg.validateReg(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -202,7 +202,7 @@ describe('F1Register', function () {
       delete sub.Name.Last
 
       f1reg.validateReg(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -211,7 +211,7 @@ describe('F1Register', function () {
       delete sub.Email
 
       f1reg.validateReg(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -229,7 +229,7 @@ describe('F1Register', function () {
       delete sub.Email
 
       f1reg.validateReg(sub, function (err) {
-        err.message.should.not.be.empty
+        err.message.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -243,7 +243,7 @@ describe('F1Register', function () {
       f1reg.register({
         Name: {}
       }, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -254,7 +254,7 @@ describe('F1Register', function () {
       _f1reg.expects('validateReg').yields('error')
 
       f1reg.register({}, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -272,7 +272,7 @@ describe('F1Register', function () {
       _people.expects('search').withArgs(query).yields('ERROR')
 
       f1reg.register(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -292,7 +292,7 @@ describe('F1Register', function () {
       })
 
       f1reg.register(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
@@ -312,15 +312,15 @@ describe('F1Register', function () {
       _f1reg.expects('ensureCreated').withArgs(sub).yields('ERROR')
 
       f1reg.register(sub, function (err) {
-        err.should.not.be.empty
+        err.should.not.be.empty()
         verifyAll()
         done()
       })
     })
 
     it('creates a new person record when no matches are found', function (done) {
-      _f1reg.expects('validateReg').yields(null, sub)
       _f1.expects('authenticate').yields()
+      _f1reg.expects('validateReg').yields(null, sub)
       _people.expects('search').withArgs({
         searchFor: 'Fred Flintstone',
         communication: sub.Email
@@ -329,10 +329,10 @@ describe('F1Register', function () {
           '@count': '0'
         }
       })
-      _f1reg.expects('ensureCreated').yields(sub, {})
+      _f1reg.expects('ensureCreated').yields(null, sub, {})
 
       f1reg.register(sub, function (err) {
-        should(err).not.exist
+        should.not.exist(err)
 
         verifyAll()
         done()
@@ -358,7 +358,7 @@ describe('F1Register', function () {
       })
 
       f1reg.ensureCreated(sub, null, function (err, reg, person) {
-        should(err).not.exist
+        should.not.exist(err)
         reg.should.eql(sub)
 
         verifyAll()
@@ -372,7 +372,7 @@ describe('F1Register', function () {
       }
 
       f1reg.ensureCreated(sub, p, function (err, reg, person) {
-        should(err).not.exist
+        should.not.exist(err)
         reg.should.eql(sub)
         person.should.eql(p)
         verifyAll()
@@ -499,7 +499,7 @@ describe('F1Register', function () {
       _f1reg.expects('createAddress').withArgs(person, sub).yields(null, address)
 
       f1reg.createPersonRecord(sub, function (err, result) {
-        should(err).not.exist
+        should.not.exist(err)
         result.should.eql({
           person: person
         })
@@ -637,7 +637,7 @@ describe('F1Register', function () {
       _addrs.expects('create').yields(null, address)
 
       f1reg.createAddress(person, sub, function (err, address) {
-        should(err).not.exist
+        should.not.exist(err)
         address.should.eql(address)
 
         verifyAll()
@@ -755,7 +755,7 @@ describe('F1Register', function () {
       sub['Home Phone'] = ''
 
       f1reg.createHomePhone(person, sub, function (err, response) {
-        should(err).not.exist
+        should.not.exist(err)
 
         verifyAll()
         done()
@@ -807,7 +807,7 @@ describe('F1Register', function () {
       sub['Mobile Phone'] = ''
 
       f1reg.createMobilePhone(person, sub, function (err, response) {
-        should(err).not.exist
+        should.not.exist(err)
 
         verifyAll()
         done()

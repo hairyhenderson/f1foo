@@ -162,7 +162,7 @@ describe('Hooks', function () {
 
     it('requires body', function (done) {
       hooks.validateBody(null, function (err, body) {
-        err.should.not.be.empty
+        should.exist(err)
         verifyAll()
         done()
       })
@@ -170,7 +170,7 @@ describe('Hooks', function () {
 
     it('requires FieldStructure', function (done) {
       hooks.validateBody({}, function (err, body) {
-        err.should.not.be.empty
+        should.exist(err)
         verifyAll()
         done()
       })
@@ -180,7 +180,7 @@ describe('Hooks', function () {
       entry.HandshakeKey = 'foo'
 
       hooks.validateBody(entry, function (err, body) {
-        err.should.exist
+        should.exist(err)
         verifyAll()
         done()
       })
@@ -190,7 +190,7 @@ describe('Hooks', function () {
       entry.HandshakeKey = 'bar'
 
       hooks.validateBody(entry, function (err, body) {
-        err.should.exist
+        should.exist(err)
         verifyAll()
         done()
       })
@@ -199,7 +199,7 @@ describe('Hooks', function () {
       entry.HandshakeKey = ''
 
       hooks.validateBody(entry, function (err, body) {
-        should(err).not.exist
+        should.not.exist(err)
         verifyAll()
         done()
       })
@@ -209,7 +209,7 @@ describe('Hooks', function () {
       entry.HandshakeKey = 'foo'
 
       hooks.validateBody(entry, function (err, body) {
-        should(err).not.exist
+        should.not.exist(err)
         verifyAll()
         done()
       })
