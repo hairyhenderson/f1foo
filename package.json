@@ -49,7 +49,7 @@
     "supertest": "^3.0.0"
   },
   "optionalDependencies": {
-    "airbrake": "^1.0.1",
+    "airbrake": "^2.0.1",
     "newrelic": "^1.27.2"
   },
   "standard": {
