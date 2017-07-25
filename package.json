@@ -50,7 +50,7 @@
   },
   "optionalDependencies": {
     "airbrake": "^2.0.1",
-    "newrelic": "^1.27.2"
+    "newrelic": "^2.0.1"
   },
   "standard": {
     "globals": [
