@@ -41,10 +41,10 @@
     "codeclimate-test-reporter": "^0.4.0",
     "istanbul": "^0.4.3",
     "mocha": "^3.0.0",
-    "nsp": "^2.4.0",
+    "nsp": "^3.0.0",
     "passport-anonymous": "^1.0.1",
     "should": "^13.0.0",
-    "sinon": "^3.0.0",
+    "sinon": "^4.0.0",
     "standard": "^9.0.2",
     "supertest": "^3.0.0"
   },
