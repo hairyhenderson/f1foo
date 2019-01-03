@@ -28,7 +28,7 @@
     "body-parser": "^1.15.1",
     "debug": "^3.0.0",
     "express": "^4.13.4",
-    "fellowshipone": "^0.3.3",
+    "fellowshipone": "0.3.3",
     "lodash": "^4.17.3",
     "morgan": "^1.7.0",
     "passport": "^0.4.0"
