@@ -21,7 +21,9 @@
   },
   "scripts": {
     "start": "node ./bin/www",
-    "test": "make test-travis"
+    "test": "make test-travis",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "dependencies": {
     "async": "^2.0.1",
@@ -31,7 +33,8 @@
     "fellowshipone": "^0.3.3",
     "lodash": "^4.17.3",
     "morgan": "^1.7.0",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "snyk": "^1.189.0"
   },
   "engines": {
     "node": ">= 6.1"
@@ -61,5 +64,6 @@
       "beforeEach",
       "afterEach"
     ]
-  }
+  },
+  "snyk": true
 }
